@@ -18,5 +18,12 @@ describe Maze do
 
       m.player.should == 1
     end
+
+    it "should build a graph of possible nodes" do
+      string = "****\n*1.*\n*.F*\n*2.*\n****"
+      m = Maze.new(string, 1)
+      
+      m.nodes.size.should == 5
+    end
   end
 end
