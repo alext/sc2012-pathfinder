@@ -18,7 +18,7 @@ class Maze
     player = nil
     @data.each_with_index do |line, y|
       line.each_with_index do |square, x|
-        next if square == '*'
+        next unless %w{. _ F}.include?(square) or square =~ /\d/
         next if square =~ /\d/ and square.to_i != @player
         type = case square
                when /\d/ then :player
@@ -83,13 +83,15 @@ class Maze
     end
     DIRS.each do |dir|
       if parent_node.send(dir) == current_node
-        return dir.to_s
+        return dir.to_s.upcase[0]
       end
     end
     raise "Something strange happened"
   end
 
   def debug(string)
-    puts string
+    if ENV['DEBUG']
+      puts string
+    end
   end
 end
